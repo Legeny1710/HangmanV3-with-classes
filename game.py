@@ -1,12 +1,15 @@
 
 class Game:
-    def __init__(self, word):
+    def __init__(self, word, stages):
         self.word = word
         self.display = []
-        self.userd_word_list = []
-        self.lives = 0
+        self.used_word_list = []
+        self.lives = 7
         self.display_word = ""
         self.create_display()
+        self.stages_num = 6
+        self.is_game_on = False
+        self.stages = stages
 
 
     def create_display(self):
@@ -17,27 +20,51 @@ class Game:
         user_guess = input("Enter your guess: ")
         return user_guess
 
-    def check_if_letter_is_in_word(self, user_guess):
+    def print_information(self):
+        print(self.display)
+        print(f'Used Word List: {self.used_word_list}')
+        print(f'Lives: {self.lives}')
 
-        index = 0
-        if user_guess in self.word:
-            for i in range(0, len(self.word)):
-                if self.word[i] == user_guess:
-                    index = i
+    def check_answer(self, user_guess):
+        for i in range(0, len(self.word)):
+            if self.word[i] == user_guess:
+                self.display[i] = user_guess
+                self.is_game_on = True
 
-            self.display[index] = user_guess
-            print(self.display)
+        if user_guess not in self.word:
+            print("Oops, Try Again!")
+            print(self.stages[self.stages_num])
+            self.stages_num -= 1
 
-    def check_if_user_guessed_all(self):
-        user_guess = self.get_user_guess()
-        for i in self.display:
-            self.display += i
 
-        if self.display == self.word:
-            print("you won!")
-            return True
+        if user_guess in self.used_word_list:
+            print("You already have guessed this letter! Try Again!")
         else:
-            return False
+            self.lives -= 1
+            self.used_word_list.append(user_guess)
+
+        self.displayWord = ""
+        for i in self.display:
+            self.displayWord += i
+
+        if self.word == self.displayWord:
+            print("You Win!")
+            self.is_game_on = False
+
+        if self.word == user_guess:
+            print("Nice guess, You win!")
+            self.is_game_on = False
+
+    def play(self):
+        self.is_game_on = True
+        while self.is_game_on == True and self.lives != 0:
+            self.print_information()
+            self.check_answer(self.get_user_guess())
+        else:
+            print("You Lost!")
+
+
+
 
 
 

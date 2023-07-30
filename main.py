@@ -5,12 +5,9 @@ from game import Game
 print(logo)
 
 word = ChooseWord(wordList).generate_random_word()
-
-
-
 print(word)
 
-Game(word).check_if_letter_is_in_word(Game(word).get_user_guess())
+Game(word, stages).play()
 
 
 
