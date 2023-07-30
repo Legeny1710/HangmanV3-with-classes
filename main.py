@@ -7,7 +7,7 @@ print(logo)
 word = ChooseWord(wordList).generate_random_word()
 
 
-print(word)
+
 
 
 
