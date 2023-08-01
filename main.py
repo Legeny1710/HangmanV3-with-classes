@@ -7,7 +7,13 @@ print(logo)
 word = ChooseWord(wordList).generate_random_word()
 print(word)
 
-Game(word, stages).play()
+g = Game(word, stages)
+
+g.is_game_on = True
+while g.is_game_on == True and g.lives != 0:
+    g.print_information()
+    g.check_answer(g.get_user_guess())
+
 
 
 

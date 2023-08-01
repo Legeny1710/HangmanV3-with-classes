@@ -36,6 +36,9 @@ class Game:
             print(self.stages[self.stages_num])
             self.stages_num -= 1
 
+        if self.lives == 0:
+            print("You ran out of guesses! You Lost!")
+
 
         if user_guess in self.used_word_list:
             print("You already have guessed this letter! Try Again!")
